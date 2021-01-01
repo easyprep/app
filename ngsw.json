@@ -1,0 +1,81 @@
+{
+  "configVersion": 1,
+  "timestamp": 1609510982073,
+  "index": "/easy-prep/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/easy-prep/favicon.ico",
+        "/easy-prep/index.html",
+        "/easy-prep/main.a55e6e3847ab38f37a04.js",
+        "/easy-prep/manifest.webmanifest",
+        "/easy-prep/polyfills.8c151b8375e767ff858f.js",
+        "/easy-prep/runtime.0e49e2b53282f40c8925.js",
+        "/easy-prep/styles.09e2c710755c8867a460.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/easy-prep/assets/icons/icon-128x128.png",
+        "/easy-prep/assets/icons/icon-144x144.png",
+        "/easy-prep/assets/icons/icon-152x152.png",
+        "/easy-prep/assets/icons/icon-192x192.png",
+        "/easy-prep/assets/icons/icon-384x384.png",
+        "/easy-prep/assets/icons/icon-512x512.png",
+        "/easy-prep/assets/icons/icon-72x72.png",
+        "/easy-prep/assets/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/easy-prep/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "/easy-prep/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "/easy-prep/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "/easy-prep/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "/easy-prep/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/easy-prep/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/easy-prep/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "/easy-prep/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "/easy-prep/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "/easy-prep/index.html": "d4e0a56bf83b9caa673fa2536a52f0429a21fdab",
+    "/easy-prep/main.a55e6e3847ab38f37a04.js": "2c10ec8228963863537af9bfd75392a644073815",
+    "/easy-prep/manifest.webmanifest": "6e1c3cc5c08d3961184f9ce1f728573dbd4d1861",
+    "/easy-prep/polyfills.8c151b8375e767ff858f.js": "763cd3b34dfa4600ebb9d9588ec7116988e98920",
+    "/easy-prep/runtime.0e49e2b53282f40c8925.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
+    "/easy-prep/styles.09e2c710755c8867a460.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
