@@ -39,14 +39,14 @@ jobs:
           then
             set -e
             echo "Exists: ${gh_pages_branch} Branch"
-            git checkout -B "$gh_pages_branch"
+            git checkout "$gh_pages_branch"
           else
             set-e
             echo "Created: ${gh_pages_branch} Branch"
             git checkout -b "$gh_pages_branch"
-            git rm -rf .
-            git checkout "$master_branch" -- .gitignore
           fi
+          git rm -rf .
+          git checkout "$master_branch" -- .gitignore
 
       - name: Push To GH-Pages Branch
         run: |
