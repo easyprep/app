@@ -9,8 +9,8 @@ on:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
-    # # Timeout before next run
-    # timeout-minutes: 9
+    # Timeout before next run / termination
+    timeout-minutes: 5
     env:
       # Change branch names as reuired
       master_branch: master
