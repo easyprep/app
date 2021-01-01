@@ -31,7 +31,7 @@ jobs:
 
       - name: Push To GH-Pages
         run: |
-          cp dist/easy-prep/* .
+          cp -r dist/easy-prep/* .
           git add .
           set +e
           if git status | grep 'new file\|modified'
