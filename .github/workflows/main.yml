@@ -52,6 +52,7 @@ jobs:
         run: |
           # Change path as reuired
           cp -r dist/easy-prep/* .
+          cp -f index.html 404.html
           git add .
           set +e
           if git status | grep 'new file\|modified'
