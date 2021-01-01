@@ -39,7 +39,7 @@ jobs:
           then
             set -e
             echo "Exists: ${gh_pages_branch} Branch"
-            git checkout "$gh_pages_branch"
+            git checkout -B "$gh_pages_branch"
           else
             set-e
             echo "Created: ${gh_pages_branch} Branch"
