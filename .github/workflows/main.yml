@@ -23,7 +23,8 @@ jobs:
         run: npm ci
 
       - name: Run Build Script
-        run: npm start
+        # Change as reuired
+        run: npm run build
 
       - name: Setup Github Account
         run: |
