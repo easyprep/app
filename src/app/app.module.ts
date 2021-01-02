@@ -10,6 +10,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
 import { HelpComponent } from './pages/help/help.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
+import { QuizzesComponent } from './pages/quizzes/quizzes.component';
+import { QuizComponent } from './pages/quiz/quiz.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
     FooterComponent,
     HomeComponent,
     HelpComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    QuizzesComponent,
+    QuizComponent
   ],
   imports: [
     BrowserModule,
