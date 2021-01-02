@@ -1,8 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, pipe } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-home',
@@ -10,10 +6,7 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  rootList: Observable<any> = new Observable();
-  constructor(private api: ApiService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.rootList = this.api.get('quizzes');
-  }
+  ngOnInit(): void {}
 }

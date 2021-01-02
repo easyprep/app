@@ -7,18 +7,27 @@
   >
 </div>
 
-<div *ngIf="question | async" class="card" id="{{ question.id }}">
+<div *ngIf="question" class="card" id="{{ question.id }}">
   <div class="card-body">
-    <h5 class="card-title">Card title</h5>
     <p class="card-text">
-      {{ question.question }}
+      Ques. {{ questionIndex + 1 }} of {{ questions.length }}
     </p>
+    <h5 class="card-title">{{ question.question }}</h5>
+    <p class="card-text"></p>
   </div>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item">Cras justo odio</li>
-    <li class="list-group-item">Dapibus ac facilisis in</li>
-    <li class="list-group-item">Vestibulum at eros</li>
+    <li
+      *ngFor="let i of [1, 2, 3, 4, 5]"
+      class="list-group-item list-group-item-action"
+      (click)="checkAnswer(i, $event)"
+    >
+      {{ question["option" + i] }}
+    </li>
   </ul>
+  <div class="card-body">
+    <h5 class="card-title">{{ question.answer }}</h5>
+    <p class="card-text">{{ question.explanation }}</p>
+  </div>
   <div class="card-body">
     <button *ngIf="questionIndex" (click)="prev()" class="btn btn-primary mr-3">
       Prev
