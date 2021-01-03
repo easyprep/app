@@ -1,3 +1,6 @@
-<div *ngIf="status | async">
-  {{ status | json }}
-</div>
+<table *ngIf="status" class="table table-bordered">
+  <tr *ngFor="let item of status | keyvalue">
+    <td>{{ item.key | titlecase }}</td>
+    <td>{{ item.value }}</td>
+  </tr>
+</table>

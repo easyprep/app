@@ -8,10 +8,10 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./help.component.scss'],
 })
 export class HelpComponent implements OnInit {
-  status: Observable<any> = of(null);
-  constructor(private api: ApiService) {}
+  status: any | null = null;
+  constructor(public api: ApiService) {}
 
   ngOnInit(): void {
-    this.status = this.api.get('status.json');
+    this.api.get('status.json').subscribe((json) => (this.status = json));
   }
 }
