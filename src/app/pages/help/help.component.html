@@ -1,6 +1,6 @@
 <table *ngIf="status" class="table table-bordered">
   <tr *ngFor="let item of status | keyvalue">
-    <td>{{ item.key | titlecase }}</td>
+    <td>{{ item.key }}</td>
     <td>{{ item.value }}</td>
   </tr>
 </table>
