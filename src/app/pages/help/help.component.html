@@ -1,1 +1,3 @@
-<p>help works!</p>
+<div *ngIf="status | async">
+  {{ status | json }}
+</div>
