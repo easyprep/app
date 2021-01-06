@@ -1,1 +1,1 @@
-<a routerLink="/quizzes">Quizzes</a>
+<p *ngFor="let q of questions" [innerHTML]="q.question"></p>
