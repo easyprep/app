@@ -21,42 +21,42 @@ const routes: Routes = [
     path: 'learn',
     children: [
       {
-        path: ':id',
+        path: ':label',
         component: LearnComponent,
       },
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'random'
-      }
+        redirectTo: 'random',
+      },
     ],
   },
   {
     path: 'practice',
     children: [
       {
-        path: ':id',
+        path: ':label',
         component: PracticeComponent,
       },
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'random'
-      }
+        redirectTo: 'random',
+      },
     ],
   },
   {
     path: 'test',
     children: [
       {
-        path: ':id',
+        path: ':label',
         component: TestComponent,
       },
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'random'
-      }
+        redirectTo: 'random',
+      },
     ],
   },
   {
@@ -74,4 +74,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

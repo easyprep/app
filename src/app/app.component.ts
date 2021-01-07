@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component } from '@angular/core';
 import { ApiService } from './services/api.service';
 
 @Component({
@@ -6,9 +6,12 @@ import { ApiService } from './services/api.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   title = 'Easy Prep 🚀';
-  constructor(private api: ApiService) {
-    api.sync();
+  constructor(private api: ApiService) {}
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.api.sync();
+    }, 1000);
   }
 }
