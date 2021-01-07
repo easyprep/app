@@ -1,1 +1,2 @@
-<p *ngFor="let q of questions" [innerHTML]="q.question"></p>
+<app-question *ngFor="let question of questions" [id]="question.id" (response)="response(question.id, $event)">
+</app-question>

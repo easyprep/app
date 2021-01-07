@@ -8,7 +8,7 @@ import { IdbService } from './idb.service';
 })
 export class ApiService {
   baseUrl = 'https://nkadebug.github.io/easy-prep-api/';
-  constructor(private http: HttpClient, private idb: IdbService) {}
+  constructor(private http: HttpClient, private idb: IdbService) { }
 
   get(path: string = ''): Observable<any> {
     console.log(path);
@@ -22,7 +22,7 @@ export class ApiService {
     } else {
       ts = parseInt(path.split(/[-.]/)[1]);
     }
-    this.get('index/' + path).subscribe((json) => {
+    this.get('indexfiles/' + path).subscribe((json) => {
       console.log(json);
       let arr = [];
       for (let k in json.indexData) {
@@ -33,7 +33,14 @@ export class ApiService {
         this.idb.indexfiles.put({ ts, synced: new Date() });
       }
       if (json.prev) {
-        this.sync(json.prev);
+        let prevTs = parseInt(json.prev.split(/[-.]/)[1]);
+        this.idb.indexfiles.where({ ts: prevTs }).toArray().then(arr => {
+          if (!arr.length) {
+            this.sync(json.prev);
+          } else {
+            console.log(`${path} already synced at ${arr[0].synced}`);
+          }
+        });
       }
     });
   }

@@ -12,6 +12,7 @@ import { HelpComponent } from './pages/help/help.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { QuizzesComponent } from './pages/quizzes/quizzes.component';
 import { QuizComponent } from './pages/quiz/quiz.component';
+import { QuestionComponent } from './components/question/question.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { QuizComponent } from './pages/quiz/quiz.component';
     HelpComponent,
     NotfoundComponent,
     QuizzesComponent,
-    QuizComponent
+    QuizComponent,
+    QuestionComponent
   ],
   imports: [
     BrowserModule,

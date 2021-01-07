@@ -14,7 +14,7 @@ export class IdbService extends Dexie {
   constructor() {
     super('easy-prep');
     this.version(1).stores({
-      questions: 'id,updated_at,labels',
+      questions: 'id,updated_at,*labels',
       indexfiles: 'ts,synced',
     });
     this.questions = this.table('questions');
