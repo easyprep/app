@@ -1,6 +1,6 @@
 <h5>Database Status</h5>
 <div *ngIf="status" class="list-group">
   <div *ngFor="let item of status | keyvalue" class="list-group-item">
-    <b>{{ item.value }} </b><i>{{ item.key | titlecase }}</i>
+    <b>{{ item.value }} </b><i>{{ item.key }}</i>
   </div>
 </div>

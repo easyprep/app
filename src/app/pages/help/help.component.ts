@@ -9,7 +9,10 @@ import { IdbService } from 'src/app/services/idb.service';
   styleUrls: ['./help.component.scss'],
 })
 export class HelpComponent implements OnInit {
-  status: any = {};
+  status: any = {
+    questions: 0,
+    labels: 0,
+  };
   constructor(public idb: IdbService) {}
 
   ngOnInit(): void {
