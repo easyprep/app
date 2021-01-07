@@ -2,15 +2,12 @@
   "name": "easy-prep",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
     "start": "ng serve --open",
     "build": "ng build --prod --base-href=/easy-prep/",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
+    "pull": "git pull origin master",
     "push": "git add . && git commit -m update && git push origin master"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "~11.0.5",
     "@angular/common": "~11.0.5",

@@ -67,7 +67,7 @@ export class QuestionComponent implements OnInit {
     if (this.quizMode) {
       if (this.optionSelected != o) {
         this.optionSelected = o;
-        this.response.emit(o.correct);
+        this.response.emit(o == this.question?.answer);
       } else {
         this.optionSelected = null;
         this.response.emit(null);
@@ -75,7 +75,7 @@ export class QuestionComponent implements OnInit {
     } else {
       if (!this.attempted) {
         e.classList.add('text-light');
-        if (o.correct) {
+        if (o == this.question?.answer) {
           e.classList.add('bg-success');
           this.response.emit(1);
         } else {

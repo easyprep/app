@@ -1,2 +1,5 @@
-<app-question *ngFor="let question of questions" [id]="question.id" (response)="response(question.id, $event)">
-</app-question>
+<div class="list-group">
+  <a class="list-group-item" routerLink="/learn">Learn</a>
+  <a class="list-group-item" routerLink="/practice">Practice</a>
+  <a class="list-group-item" routerLink="/test">Test</a>
+</div>
