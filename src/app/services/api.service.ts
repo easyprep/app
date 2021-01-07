@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IdbService } from './idb.service';
+import { Question } from '../interfaces/question';
 
 @Injectable({
   providedIn: 'root',
@@ -24,11 +25,10 @@ export class ApiService {
     }
     this.get('indexfiles/' + path).subscribe((json) => {
       console.log(json);
-      let arr = [];
-      for (let k in json.indexData) {
-        arr.push({ id: k, ...json.indexData[k] });
-      }
-      this.idb.questions.bulkPut(arr);
+      this.idb.questions.bulkPut(json.indexData.map((q: any) => {
+        q.labels = q.labels.split(',');
+        return q;
+      }));
       if (ts) {
         this.idb.indexfiles.put({ ts, synced: new Date() });
       }
