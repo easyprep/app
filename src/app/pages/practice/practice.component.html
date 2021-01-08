@@ -13,12 +13,12 @@
   </div>
   <nav>
     <ul class="pagination justify-content-center">
-      <li class="page-item mr-2" [class]="offset == 0 ? 'disabled' : 'success'">
+      <li class="page-item mr-2" [class]="offset == 0 ? 'disabled' : 'active'">
         <a (click)="prev()" class="btn page-link">Prev</a>
       </li>
       <li
         class="page-item"
-        [class]="offset == count - 1 ? 'disabled' : 'success'"
+        [class]="offset == count - 1 ? 'disabled' : 'active'"
       >
         <a (click)="next()" class="btn page-link">Next</a>
       </li>
