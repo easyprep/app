@@ -40,8 +40,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        pathMatch: 'full',
-        redirectTo: 'random',
+        component: PracticeComponent,
       },
     ],
   },
@@ -74,4 +73,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -17,6 +17,7 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { PracticeComponent } from './pages/practice/practice.component';
 import { TestComponent } from './pages/test/test.component';
 import { LearnComponent } from './pages/learn/learn.component';
+import { LabelsComponent } from './components/labels/labels.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { LearnComponent } from './pages/learn/learn.component';
     QuestionComponent,
     PracticeComponent,
     TestComponent,
-    LearnComponent
+    LearnComponent,
+    LabelsComponent
   ],
   imports: [
     BrowserModule,

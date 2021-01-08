@@ -22,33 +22,33 @@ export class PracticeComponent implements OnInit {
   constructor(private idb: IdbService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.offset = -1;
-    console.time('route.params');
-    this.route.params.subscribe((params) => {
-      console.timeEnd('route.params');
-      this.label = params.label;
-      console.log(this.label);
+    // this.offset = -1;
+    // console.time('route.params');
+    // this.route.params.subscribe((params) => {
+    //   console.timeEnd('route.params');
+    //   this.label = params.label;
+    //   console.log(this.label);
 
-      console.time('labelObj');
-      this.idb.labels.get(this.label).then((l: any) => {
-        console.timeEnd('labelObj');
-        this.labelObj = l;
-        console.log(this.labelObj);
-      });
+    //   console.time('labelObj');
+    //   this.idb.labels.get(this.label).then((l: any) => {
+    //     console.timeEnd('labelObj');
+    //     this.labelObj = l;
+    //     console.log(this.labelObj);
+    //   });
 
-      // console.time('qc');
-      // this.idb.questions
-      //   .where('labels')
-      //   .equalsIgnoreCase(this.label)
-      //   .count()
-      //   .then((c) => {
-      //     console.timeEnd('qc');
-      //     this.labelQuestionCount = c;
-      //     console.log(c);
-      //     this.next();
-      //   });
-      this.next();
-    });
+    // console.time('qc');
+    // this.idb.questions
+    //   .where('labels')
+    //   .equalsIgnoreCase(this.label)
+    //   .count()
+    //   .then((c) => {
+    //     console.timeEnd('qc');
+    //     this.labelQuestionCount = c;
+    //     console.log(c);
+    //     this.next();
+    //   });
+    //   this.next();
+    // });
   }
 
   next() {
