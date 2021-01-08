@@ -18,8 +18,9 @@ export class PracticeComponent implements OnInit {
 
   offset = -1;
   limit = 1;
+  count = 0;
 
-  constructor(private idb: IdbService, private route: ActivatedRoute) { }
+  constructor(private idb: IdbService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     // this.offset = -1;
@@ -28,14 +29,12 @@ export class PracticeComponent implements OnInit {
     //   console.timeEnd('route.params');
     //   this.label = params.label;
     //   console.log(this.label);
-
     //   console.time('labelObj');
     //   this.idb.labels.get(this.label).then((l: any) => {
     //     console.timeEnd('labelObj');
     //     this.labelObj = l;
     //     console.log(this.labelObj);
     //   });
-
     // console.time('qc');
     // this.idb.questions
     //   .where('labels')
@@ -68,10 +67,22 @@ export class PracticeComponent implements OnInit {
       .reverse()
       .sortBy('updated_at')
       .then((arr) => {
+        this.count = arr.length;
         console.log(arr.length, this.offset, this.limit);
         this.questions = arr.slice(this.offset, this.offset + this.limit);
         console.timeEnd('next');
       });
+  }
+
+  showQuestions(label: string) {
+    console.log(label);
+    this.label = label;
+    if (label) {
+      this.offset = -1;
+      this.next();
+    } else {
+      this.questions = [];
+    }
   }
 
   response(id: string, e: any) {

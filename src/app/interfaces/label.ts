@@ -1,5 +1,5 @@
 export interface Label {
-  id?: string;
+  id: string;
   title?: string;
   parent?: string;
 }

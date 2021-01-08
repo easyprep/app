@@ -35,11 +35,7 @@ const routes: Routes = [
     path: 'practice',
     children: [
       {
-        path: ':label',
-        component: PracticeComponent,
-      },
-      {
-        path: '',
+        path: '**',
         component: PracticeComponent,
       },
     ],
@@ -73,4 +69,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

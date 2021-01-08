@@ -1,3 +1,42 @@
-<div class="list-group">
-  <a routerLink=""></a>
-</div>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+    <li
+      *ngFor="let label of labels; let i = index"
+      class="breadcrumb-item"
+      [class]="i == labels.length - 1 ? 'active' : ''"
+    >
+      <a
+        *ngIf="i < labels.length - 1; else elseBlock"
+        routerLink="/{{ page }}/{{ labels.slice(1, i + 1).join('/') }}"
+        >{{ (label == "_top_" ? page : label) | titlecase }}</a
+      >
+      <ng-template #elseBlock>{{
+        (label == "_top_" ? page : label) | titlecase
+      }}</ng-template>
+    </li>
+    <!-- <li class="breadcrumb-item">
+      <input
+        *ngIf="showCaDate"
+        type="date"
+        class="inline-form-control"
+        [formControl]="caDate"
+        [max]="caMaxDate"
+      />
+    </li> -->
+    <li *ngIf="children.length" class="breadcrumb-item">
+      <select [formControl]="childLabel">
+        <option value="-">-- Select --</option>
+        <option *ngFor="let child of children" value="{{ child.id }}">
+          {{ child.title | titlecase }}
+        </option>
+      </select>
+    </li>
+  </ol>
+</nav>
+
+<!-- <div *ngIf="!showCaDate" class="list-group">
+  <a *ngFor="let child of children" routerLink="{{ child.id }}">{{
+    child.title
+  }}</a>
+</div> -->

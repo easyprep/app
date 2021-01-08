@@ -1,5 +1,27 @@
-<app-labels></app-labels>
-<app-question *ngFor="let question of questions" [id]="question.id" (response)="response(question.id, $event)">
-</app-question>
-<button (click)="prev()" class="btn btn-primary mr-3">Prev</button>
-<button (click)="next()" class="btn btn-primary">Next</button>
+<app-labels
+  page="practice"
+  (showQuestions)="showQuestions($event)"
+></app-labels>
+<div *ngIf="questions.length">
+  <div>
+    <app-question
+      *ngFor="let question of questions"
+      [id]="question.id"
+      (response)="response(question.id, $event)"
+    >
+    </app-question>
+  </div>
+  <nav>
+    <ul class="pagination">
+      <li class="page-item mr-2" [class]="offset == 0 ? 'disabled' : 'active'">
+        <a (click)="prev()" class="btn page-link">Prev</a>
+      </li>
+      <li
+        class="page-item"
+        [class]="offset == count - 1 ? 'disabled' : 'active'"
+      >
+        <a (click)="next()" class="btn page-link">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>
