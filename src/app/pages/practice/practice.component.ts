@@ -15,36 +15,61 @@ export class PracticeComponent implements OnInit {
   labelObj: Label | null = null;
   labelQuestionCount = 0;
   questions: Question[] = [];
-  constructor(private idb: IdbService, private route: ActivatedRoute) {}
+
+  offset = -1;
+  limit = 1;
+
+  constructor(private idb: IdbService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.offset = -1;
+    console.time('route.params');
     this.route.params.subscribe((params) => {
+      console.timeEnd('route.params');
       this.label = params.label;
+      console.log(this.label);
+
+      console.time('labelObj');
       this.idb.labels.get(this.label).then((l: any) => {
+        console.timeEnd('labelObj');
         this.labelObj = l;
+        console.log(this.labelObj);
       });
-      this.idb.questions
-        .where('labels')
-        .equalsIgnoreCase(this.label)
-        .count()
-        .then((c) => {
-          this.labelQuestionCount = c;
-          this.next();
-        });
+
+      // console.time('qc');
+      // this.idb.questions
+      //   .where('labels')
+      //   .equalsIgnoreCase(this.label)
+      //   .count()
+      //   .then((c) => {
+      //     console.timeEnd('qc');
+      //     this.labelQuestionCount = c;
+      //     console.log(c);
+      //     this.next();
+      //   });
+      this.next();
     });
   }
 
   next() {
+    this.offset++;
+    this.get();
+  }
+  prev() {
+    this.offset--;
+    this.get();
+  }
+  get() {
     console.time('next');
-    let offset = Math.floor(Math.random() * this.labelQuestionCount);
+    // let offset = Math.floor(Math.random() * this.labelQuestionCount);
     this.idb.questions
       .where('labels')
       .equalsIgnoreCase(this.label)
-      .offset(offset)
-      .limit(5)
-      .toArray()
+      .reverse()
+      .sortBy('updated_at')
       .then((arr) => {
-        this.questions = arr;
+        console.log(arr.length, this.offset, this.limit);
+        this.questions = arr.slice(this.offset, this.offset + this.limit);
         console.timeEnd('next');
       });
   }

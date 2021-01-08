@@ -8,10 +8,11 @@ import { ApiService } from './services/api.service';
 })
 export class AppComponent implements AfterViewInit {
   title = 'Easy Prep 🚀';
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService) { }
   ngAfterViewInit() {
     setTimeout(() => {
-      this.api.sync();
+      //this.api.sync();
+      console.log('Sync skkiped');
     }, 1000);
   }
 }

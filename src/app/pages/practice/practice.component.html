@@ -1,10 +1,7 @@
 <h6 *ngIf="labelObj">
   {{ labelObj.title | titlecase }}
 </h6>
-<app-question
-  *ngFor="let question of questions"
-  [id]="question.id"
-  (response)="response(question.id, $event)"
->
+<app-question *ngFor="let question of questions" [id]="question.id" (response)="response(question.id, $event)">
 </app-question>
+<button (click)="prev()" class="btn btn-primary mr-3">Prev</button>
 <button (click)="next()" class="btn btn-primary">Next</button>
