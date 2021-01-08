@@ -4,8 +4,9 @@
   "scripts": {
     "start": "ng serve --open",
     "build": "ng build --prod --base-href=/easy-prep/",
+    "deploy": "git add . && git commit -m \"Update & Deploy\" && git push origin master",
     "pull": "git pull origin master",
-    "push": "git add . && git commit -m \"minor update [skip ci]\" && git push origin master"
+    "push": "git add . && git commit -m \"Update & [skip ci]\" && git push origin master"
   },
   "private": false,
   "dependencies": {
