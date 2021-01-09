@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "easy-prep": {
+      "hosting": {
+        "easy-prep": [
+          "easy-prep"
+        ]
+      }
+    }
+  }
+}

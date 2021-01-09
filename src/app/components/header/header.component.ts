@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,9 @@ import { ApiService } from 'src/app/services/api.service';
 export class HeaderComponent implements OnInit {
   @Input() title: any;
 
-  constructor(public api: ApiService) { }
+  constructor(public api: ApiService, public auth: AuthService) { }
 
   ngOnInit(): void { }
+
+
 }
