@@ -1,7 +1,7 @@
 {
-  "name": "easy-prep",
-  "short_name": "easy-prep",
-  "theme_color": "#1976d2",
+  "name": "Easy Prep",
+  "short_name": "Easy Prep",
+  "theme_color": "#343a40",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",
