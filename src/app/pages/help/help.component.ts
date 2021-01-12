@@ -13,10 +13,10 @@ export class HelpComponent implements OnInit {
     questions: 0,
     labels: 0,
   };
-  constructor(public idb: IdbService) {}
+  constructor(public idb: IdbService) { }
 
   ngOnInit(): void {
-    this.idb.questions.count().then((c) => (this.status.questions = c));
-    this.idb.labels.count().then((c) => (this.status.labels = c));
+    //this.idb.questions.count().then((c) => (this.status.questions = c));
+    //this.idb.labels.count().then((c) => (this.status.labels = c));
   }
 }

@@ -22,6 +22,9 @@ import { PracticeComponent } from './pages/practice/practice.component';
 import { TestComponent } from './pages/test/test.component';
 import { LearnComponent } from './pages/learn/learn.component';
 import { LabelsComponent } from './components/labels/labels.component';
+import { LabelComponent } from './components/label/label.component';
+import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,9 @@ import { LabelsComponent } from './components/labels/labels.component';
     TestComponent,
     LearnComponent,
     LabelsComponent,
+    LabelComponent,
+    BreadcrumbsComponent,
+    CalendarComponent,
   ],
   imports: [
     BrowserModule,

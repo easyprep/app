@@ -1,0 +1,13 @@
+<table class="table table-bordered text-center mb-3">
+  <tr>
+    <td colspan="7"><b>{{ monthNames[month-1] }} {{ year }}</b></td>
+  </tr>
+  <tr *ngFor="let row of grid">
+    <td *ngFor="let cell of row">
+      <div *ngIf="cell">
+        <a *ngIf="cell.path" routerLink="{{cell.path}}" class="d-block">{{ cell.title }}</a>
+        <a *ngIf="!cell.path">{{ cell.title }}</a>
+      </div>
+    </td>
+  </tr>
+</table>

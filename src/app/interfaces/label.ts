@@ -1,5 +1,5 @@
 export interface Label {
-  id: string;
-  title?: string;
-  parent?: string;
+  path: string;
+  title: string;
+  questions: any[];
 }

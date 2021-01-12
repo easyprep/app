@@ -16,70 +16,37 @@ export class PracticeComponent implements OnInit {
   labelQuestionCount = 0;
   questions: Question[] = [];
 
-  offset = -1;
-  limit = 1;
+  offset = 0;
   count = 0;
+  path = '';
+  prevIndexFile:string | null = null;
 
-  constructor(private idb: IdbService, private route: ActivatedRoute) {}
+  constructor(private api: ApiService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    // this.offset = -1;
-    // console.time('route.params');
-    // this.route.params.subscribe((params) => {
-    //   console.timeEnd('route.params');
-    //   this.label = params.label;
-    //   console.log(this.label);
-    //   console.time('labelObj');
-    //   this.idb.labels.get(this.label).then((l: any) => {
-    //     console.timeEnd('labelObj');
-    //     this.labelObj = l;
-    //     console.log(this.labelObj);
-    //   });
-    // console.time('qc');
-    // this.idb.questions
-    //   .where('labels')
-    //   .equalsIgnoreCase(this.label)
-    //   .count()
-    //   .then((c) => {
-    //     console.timeEnd('qc');
-    //     this.labelQuestionCount = c;
-    //     console.log(c);
-    //     this.next();
-    //   });
-    //   this.next();
-    // });
   }
 
   next() {
     this.offset++;
-    this.get();
+    if (this.count - this.offset == 1) {
+      if(this.prevIndexFile){
+        this.showQuestions(this.path, this.prevIndexFile);
+      }
+    }
   }
   prev() {
     this.offset--;
-    this.get();
   }
-  get() {
-    console.time('next');
-    // let offset = Math.floor(Math.random() * this.labelQuestionCount);
-    this.idb.questions
-      .where('labels')
-      .equalsIgnoreCase(this.label)
-      .reverse()
-      .sortBy('updated_at')
-      .then((arr) => {
-        this.count = arr.length;
-        console.log(arr.length, this.offset, this.limit);
-        this.questions = arr.slice(this.offset, this.offset + this.limit);
-        console.timeEnd('next');
+  showQuestions(path: string, file: string = '') {
+    console.log(path);
+    if (path) {
+      this.path = path;
+      this.api.get('labels/' + path + file).subscribe(json => {
+        console.log(json);
+        this.questions = [... this.questions, ...json.data];
+        this.count = this.questions.length;
+        this.prevIndexFile = json.prev;
       });
-  }
-
-  showQuestions(label: string) {
-    console.log(label);
-    this.label = label;
-    if (label) {
-      this.offset = -1;
-      this.next();
     } else {
       this.questions = [];
     }

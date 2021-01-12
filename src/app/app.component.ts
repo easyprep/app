@@ -6,13 +6,7 @@ import { ApiService } from './services/api.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
   title = 'Easy Prep 🚀';
-  constructor(private api: ApiService) {}
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.api.sync();
-      //console.log('Sync skkiped');
-    }, 1000);
-  }
+  constructor() { }
 }

@@ -11,8 +11,8 @@ import { Observable, BehaviorSubject } from 'rxjs';
 })
 
 export class QuestionComponent implements OnInit {
-  @Input() id = "";
-  @Input() quizMode = false;
+  @Input() id: string = '';
+  @Input() quizMode: boolean = false;
   @Output() response = new EventEmitter<any>();
 
   question: Question | null = null;
@@ -26,40 +26,65 @@ export class QuestionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.idb.questions.get(this.id)
-      .then(q => {
-        if (q) {
-          if (!q.question) {
-            let path =
-              'questions' +
-              q.id
-                .substr(0, 6)
-                .split('')
-                .map((a, i) => (i % 2 == 0 ? '/' + a : a))
-                .join('') +
-              '/' +
-              q.id.substr(6, 30) +
-              '/';
-
-            this.api.get(path).subscribe((json) => {
-              console.log(json);
-              json.labels = json.labels.split(',');
-              let options = [];
-              for (let key in json) {
-                if (key.indexOf("option") == 0) {
-                  options.push(json[key]);
-                  delete json[key];
-                }
-              }
-              json.options = options;
-              this.idb.questions.put(json);
-              this.question = json;
-            });
-          } else {
-            this.question = q;
-          }
+    console.log(this.id);
+    let path =
+      'questions' +
+      this.id
+        .substr(0, 6)
+        .split('')
+        .map((a, i) => (i % 2 == 0 ? '/' + a : a))
+        .join('') +
+      '/' +
+      this.id.substr(6, 30) +
+      '/';
+    console.log(path);
+    this.api.get(path).subscribe(json => {
+      json.labels = json.labels.split(',');
+      let options = [];
+      for (let key in json) {
+        if (key.indexOf("option") == 0) {
+          options.push(json[key]);
+          delete json[key];
         }
-      });
+      }
+      json.options = options;
+      this.question = json;
+    });
+
+    // this.idb.questions.get(this.id)
+    //   .then(q => {
+    //     if (q) {
+    //       if (!q.question) {
+    //         let path =
+    //           'questions' +
+    //           q.id
+    //             .substr(0, 6)
+    //             .split('')
+    //             .map((a, i) => (i % 2 == 0 ? '/' + a : a))
+    //             .join('') +
+    //           '/' +
+    //           q.id.substr(6, 30) +
+    //           '/';
+
+    //         this.api.get(path).subscribe((json) => {
+    //           console.log(json);
+    //           json.labels = json.labels.split(',');
+    //           let options = [];
+    //           for (let key in json) {
+    //             if (key.indexOf("option") == 0) {
+    //               options.push(json[key]);
+    //               delete json[key];
+    //             }
+    //           }
+    //           json.options = options;
+    //           this.idb.questions.put(json);
+    //           this.question = json;
+    //         });
+    //       } else {
+    //         this.question = q;
+    //       }
+    //     }
+    //   });
   }
 
   checkAns(o: any, e: any) {

@@ -1,14 +1,8 @@
-<app-labels
-  page="practice"
-  (showQuestions)="showQuestions($event)"
-></app-labels>
+<app-labels page="practice" (showQuestions)="showQuestions($event)"></app-labels>
+
 <div *ngIf="questions.length">
-  <div>
-    <app-question
-      *ngFor="let question of questions"
-      [id]="question.id"
-      (response)="response(question.id, $event)"
-    >
+  <div *ngFor="let question of questions; let i = index;">
+    <app-question [class]="i != offset ?'d-none':''" [id]="question.id" (response)="response(question.id, $event)">
     </app-question>
   </div>
   <nav>
@@ -16,10 +10,7 @@
       <li class="page-item mr-2" [class]="offset == 0 ? 'disabled' : 'active'">
         <a (click)="prev()" class="btn page-link">Prev</a>
       </li>
-      <li
-        class="page-item"
-        [class]="offset == count - 1 ? 'disabled' : 'active'"
-      >
+      <li class="page-item" [class]="offset == count - 1 ? 'disabled' : 'active'">
         <a (click)="next()" class="btn page-link">Next</a>
       </li>
     </ul>

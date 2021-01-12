@@ -9,10 +9,12 @@ import { IdbService } from 'src/app/services/idb.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-
-  constructor() { }
+  y = 2021;
+  m = 1;
+  constructor(private api: ApiService) { }
 
   ngOnInit(): void {
 
+    //this.api.get('labels/current-affairs/2018/02/03').subscribe(json => console.log(json));
   }
 }

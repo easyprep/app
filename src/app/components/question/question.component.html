@@ -1,32 +1,34 @@
 <div *ngIf="question" [id]="question.id" class="card mb-2" [class]="{ noselect: quizMode }">
-    <meta content="{{
+  <meta content="{{
       question.updated_at | date: 'yyyy-MM-dd HH:mm:ss'
     }}" itemprop="updatedAt" />
-    <meta content="{{
+  <meta content="{{
       question.created_at | date: 'yyyy-MM-dd HH:mm:ss'
     }}" itemprop="createdAt" />
-    <div class="card-body">
-        <!-- <h5 class="card-title">Question {{ qNo + 1 }}.</h5> -->
-        <p class="card-text font-weight-bold" [innerHTML]="question.question"></p>
-    </div>
-    <ul class="list-group list-group-flush">
-        <li *ngFor="let option of question.options; let i = index" (click)="checkAns(option, $event.target)"
-            class="list-group-item list-group-item-action"
-            [class]="optionSelected == option ? 'text-light bg-primary' : ''" [innerHTML]="option">
-        </li>
-    </ul>
-    <div *ngIf="attempted" class="card-body">
-        <p *ngIf="showAnswer" class="card-text">
-            <i>Answer: </i><b [innerHTML]="question.answer"></b>
-        </p>
-        <p class="card-text text-justify">
-            <i>Explanation: </i><span [innerHTML]="question.explanation"></span>
-        </p>
-    </div>
-    <!-- <div *ngIf="!quizMode" class="card-body">
+  <div class="card-body">
+    <!-- <h5 class="card-title">Question {{ qNo + 1 }}.</h5> -->
+    <p class="card-text font-weight-bold" [innerHTML]="question.question"></p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li *ngFor="let option of question.options; let i = index" (click)="checkAns(option, $event.target)"
+      class="list-group-item list-group-item-action" [class]="optionSelected == option ? 'text-light bg-primary' : ''"
+      [innerHTML]="option">
+    </li>
+  </ul>
+  <div *ngIf="attempted" class="card-body">
+    <p *ngIf="showAnswer" class="card-text">
+      <i>Answer: </i><b [innerHTML]="question.answer"></b>
+    </p>
+    <p class="card-text text-justify">
+      <i>Explanation: </i><span [innerHTML]="question.explanation"></span>
+    </p>
+  </div>
+  <!-- <div *ngIf="!quizMode" class="card-body">
         <p class="card-text">
             <button class="btn btn-primary">Show Answer</button>
             <button class="btn btn-info ml-3">Star</button>
         </p>
     </div> -->
 </div>
+
+<div *ngIf="!question">Loading...</div>

@@ -1,29 +1,14 @@
-<nav aria-label="breadcrumb">
+<!-- <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
-    <li
-      *ngFor="let label of labels; let i = index"
-      class="breadcrumb-item"
-      [class]="i == labels.length - 1 ? 'active' : ''"
-    >
-      <a
-        *ngIf="i < labels.length - 1; else elseBlock"
-        routerLink="/{{ page }}/{{ labels.slice(1, i + 1).join('/') }}"
-        >{{ (label == "_top_" ? page : label) | titlecase }}</a
-      >
+    <li *ngFor="let label of labels; let i = index" class="breadcrumb-item"
+      [class]="i == labels.length - 1 ? 'active' : ''">
+      <a *ngIf="i < labels.length - 1; else elseBlock"
+        routerLink="/{{ page }}/{{ labels.slice(1, i + 1).join('/') }}">{{ (label == "_top_" ? page : label) | titlecase }}</a>
       <ng-template #elseBlock>{{
         (label == "_top_" ? page : label) | titlecase
       }}</ng-template>
     </li>
-    <!-- <li class="breadcrumb-item">
-      <input
-        *ngIf="showCaDate"
-        type="date"
-        class="inline-form-control"
-        [formControl]="caDate"
-        [max]="caMaxDate"
-      />
-    </li> -->
     <li *ngIf="children.length" class="breadcrumb-item">
       <select [formControl]="childLabel">
         <option value="-">-- Select --</option>
@@ -33,10 +18,20 @@
       </select>
     </li>
   </ol>
-</nav>
+</nav> -->
 
-<!-- <div *ngIf="!showCaDate" class="list-group">
-  <a *ngFor="let child of children" routerLink="{{ child.id }}">{{
-    child.title
+<div *ngIf="showError" class="alert alert-danger">
+  {{ errorMsg }}
+</div>
+
+<div *ngIf="showLoading">Loading...</div>
+
+<div *ngIf="showSubLabels && !showLoading" class="list-group">
+  <a *ngFor="let label of subLabels" routerLink="{{ label.path }}">{{
+    label.title | titlecase
   }}</a>
-</div> -->
+</div>
+
+<div *ngIf="showCalendars">
+  <app-calendar *ngFor="let calendar of calendars" [year]="calendar.y" [month]="calendar.m"></app-calendar>
+</div>

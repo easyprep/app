@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { IdbService } from 'src/app/services/idb.service';
 import { Label } from 'src/app/interfaces/label';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-labels',
@@ -10,59 +11,88 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./labels.component.scss'],
 })
 export class LabelsComponent implements OnInit {
-  @Input() page: string | null = null;
-  @Output() showQuestions = new EventEmitter<string>();
-  labels: string[] = [];
-  label: string | null = null;
-  children: Label[] = [];
+  @Input() page: string = '';
+  @Output() showQuestions = new EventEmitter<any>();
 
-  childLabel = new FormControl('-');
-  myForm = new FormGroup({});
+  path: string = '';
+  subLabels: Label[] = [];
+  questions: any[] = [];
+
+  showSubLabels = false;
+  showCalendars = false;
+  calendars: any[] = [];
+  showLoading = true;
+  showError = false;
+  errorMsg = '';
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private idb: IdbService
-  ) {}
+    private api: ApiService
+  ) { }
 
   ngOnInit(): void {
+
     this.route.url.subscribe((segments: UrlSegment[]) => {
-      console.log(segments);
-      this.labels = segments.map((a) => a.path);
-      this.labels.splice(0, 0, '_top_');
-      //if (this.labels.length == 0) this.labels.push('_top_');
-      this.label = this.labels[this.labels.length - 1];
-      console.log(this.label);
-      this.idb.labels
-        .where({ parent: this.label })
-        .toArray()
-        .then((arr) => {
-          if (this.label == 'current-affairs') {
-            this.children = arr.sort((a, b) => (a.id > b.id ? -1 : 1));
-          } else {
-            this.children = arr.sort((a, b) => (a.id > b.id ? 1 : -1));
+
+      this.showLoading = true;
+      this.showCalendars = false;
+
+      this.path = segments.map((a) => a.path).join('/') + (segments.length ? '/' : '');
+
+      this.api.get('labels/' + this.path).subscribe((json) => {
+
+        this.showLoading = false;
+
+        this.showError = !!json.err;
+        this.errorMsg = json.msg;
+
+        console.log(this.showError, this.errorMsg);
+
+        if (json.type == '_folder') {
+
+          this.subLabels = json.data
+            .map((a: any) => {
+
+              let label = { path: a, title: a.replace(/-/g, " ") };
+
+              return label;
+
+            });
+
+          if (this.path.indexOf('current-affairs') > -1) {
+            this.subLabels = this.subLabels.sort((a, b) => (a.path > b.path ? -1 : 1));
           }
 
-          if (!arr.length) {
-            this.showQuestions.emit(this.label?.toString());
+          this.showSubLabels = true;
+
+          if (segments.length == 2) {
+            if (segments[0].path == 'current-affairs') {
+              this.showCalendars = true;
+              this.showSubLabels = false;
+              this.calendars = this.subLabels.map(a => {
+                return { y: parseInt(segments[1].path), m: parseInt(a.title) }
+              })
+            }
           } else {
-            this.showQuestions.emit('');
+            this.showCalendars = false;
           }
-        });
+
+          this.showQuestions.emit(null);
+
+        } else if (json.type == '_file') {
+
+          this.showSubLabels = false;
+          this.showCalendars = false;
+
+          this.showQuestions.emit(this.path);
+
+        }
+
+      });
+
     });
 
-    this.childLabel.valueChanges.subscribe((date) => {
-      if (date != '-') {
-        this.router
-          .navigate([
-            this.page,
-            ...this.labels.slice(1, this.labels.length),
-            date,
-          ])
-          .then(() => {
-            this.childLabel.setValue('-');
-          });
-      }
-    });
   }
+
 }
