@@ -1,4 +1,6 @@
 import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
+import { Observable, merge, of, fromEvent, pipe } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -10,9 +12,17 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HeaderComponent implements OnInit {
   @Input() title: any;
 
-  constructor(public api: ApiService, public auth: AuthService) { }
+  isConnected: Observable<boolean>;
 
-  ngOnInit(): void { }
+  constructor(public auth: AuthService) {
+    this.isConnected = merge(
+      of(navigator.onLine),
+      fromEvent(window, 'online').pipe(map(() => true)),
+      fromEvent(window, 'offline').pipe(map(() => false))
+    );
+  }
 
-
+  ngOnInit(): void {
+    this.isConnected.subscribe(console.log);
+  }
 }

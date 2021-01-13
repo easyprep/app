@@ -19,7 +19,7 @@ export class PracticeComponent implements OnInit {
   offset = 0;
   count = 0;
   path = '';
-  prevIndexFile:string | null = null;
+  prevIndexFile: string | null = null;
 
   constructor(private api: ApiService, private route: ActivatedRoute) { }
 
@@ -29,14 +29,20 @@ export class PracticeComponent implements OnInit {
   next() {
     this.offset++;
     if (this.count - this.offset == 1) {
-      if(this.prevIndexFile){
-        this.showQuestions(this.path, this.prevIndexFile);
-      }
+      this.fetchPrevIndex();
     }
   }
+
   prev() {
     this.offset--;
   }
+
+  fetchPrevIndex() {
+    if (this.prevIndexFile) {
+      this.showQuestions(this.path, this.prevIndexFile);
+    }
+  }
+
   showQuestions(path: string, file: string = '') {
     console.log(path);
     if (path) {
@@ -46,6 +52,9 @@ export class PracticeComponent implements OnInit {
         this.questions = [... this.questions, ...json.data];
         this.count = this.questions.length;
         this.prevIndexFile = json.prev;
+        if (this.count == 1) {
+          this.fetchPrevIndex();
+        }
       });
     } else {
       this.questions = [];

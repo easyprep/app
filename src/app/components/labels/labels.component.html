@@ -1,37 +1,50 @@
-<!-- <nav aria-label="breadcrumb">
+<nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
-    <li *ngFor="let label of labels; let i = index" class="breadcrumb-item"
-      [class]="i == labels.length - 1 ? 'active' : ''">
-      <a *ngIf="i < labels.length - 1; else elseBlock"
-        routerLink="/{{ page }}/{{ labels.slice(1, i + 1).join('/') }}">{{ (label == "_top_" ? page : label) | titlecase }}</a>
-      <ng-template #elseBlock>{{
-        (label == "_top_" ? page : label) | titlecase
-      }}</ng-template>
-    </li>
-    <li *ngIf="children.length" class="breadcrumb-item">
-      <select [formControl]="childLabel">
-        <option value="-">-- Select --</option>
-        <option *ngFor="let child of children" value="{{ child.id }}">
-          {{ child.title | titlecase }}
-        </option>
-      </select>
+    <li
+      *ngFor="let breadcrumb of breadcrumbs; let i = index"
+      class="breadcrumb-item"
+      [class]="i == breadcrumbs.length - 1 ? 'active' : ''"
+    >
+      <a
+        *ngIf="i < breadcrumbs.length - 1; else showLast"
+        routerLink="/{{ breadcrumb.path }}"
+        >{{ breadcrumb.title | titlecase }}</a
+      >
+      <ng-template #showLast>{{ breadcrumb.title | titlecase }}</ng-template>
     </li>
   </ol>
-</nav> -->
+</nav>
 
-<div *ngIf="showError" class="alert alert-danger">
+<div *ngIf="showError; else noError" class="alert alert-danger">
   {{ errorMsg }}
 </div>
 
-<div *ngIf="showLoading">Loading...</div>
-
-<div *ngIf="showSubLabels && !showLoading" class="list-group">
-  <a *ngFor="let label of subLabels" routerLink="{{ label.path }}">{{
-    label.title | titlecase
-  }}</a>
+<div *ngIf="showLoading">
+  <div class="lds-ellipsis">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
 </div>
 
-<div *ngIf="showCalendars">
-  <app-calendar *ngFor="let calendar of calendars" [year]="calendar.y" [month]="calendar.m"></app-calendar>
-</div>
+<ng-template #noError>
+  <div *ngIf="showSubLabels && !showLoading" class="list-group">
+    <a
+      *ngFor="let label of subLabels"
+      routerLink="{{ label.path }}"
+      class="list-group-item"
+      >{{ label.title | titlecase }}</a
+    >
+  </div>
+
+  <div *ngIf="showCalendars">
+    <app-calendar
+      *ngFor="let calendar of calendars"
+      [year]="calendar.y"
+      [month]="calendar.m"
+      [relpath]="calendar.p"
+    ></app-calendar>
+  </div>
+</ng-template>

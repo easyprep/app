@@ -39,6 +39,7 @@ export class QuestionComponent implements OnInit {
       '/';
     console.log(path);
     this.api.get(path).subscribe(json => {
+      if (!json) return;
       json.labels = json.labels.split(',');
       let options = [];
       for (let key in json) {
