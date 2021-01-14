@@ -4,6 +4,7 @@ import { IdbService } from 'src/app/services/idb.service';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { Label } from 'src/app/interfaces/label';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-practice',
@@ -20,6 +21,8 @@ export class PracticeComponent implements OnInit {
   count = 0;
   path = '';
   prevIndexFile: string | null = null;
+
+  showPaginator: BehaviorSubject<any> = new BehaviorSubject(false);
 
   constructor(private api: ApiService, private route: ActivatedRoute) {}
 
@@ -47,6 +50,8 @@ export class PracticeComponent implements OnInit {
       if (path !== this.path) {
         this.count = 0;
         this.offset = 0;
+        this.showPaginator.next(false);
+        this.questions = [];
       }
       this.path = path;
       this.api.get('labels/' + path + file).subscribe((json) => {
@@ -66,7 +71,13 @@ export class PracticeComponent implements OnInit {
     }
   }
 
-  response(id: string, e: any) {
-    console.log(id, e);
+  loaded(e: any) {
+    if (this.questions[this.offset].id == e.id) {
+      this.showPaginator.next(!!e.loaded);
+    }
+  }
+
+  response(e: any) {
+    console.log(e);
   }
 }

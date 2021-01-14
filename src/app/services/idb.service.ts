@@ -19,5 +19,7 @@ export class IdbService extends Dexie {
     });
     this.offlineCahces = this.table('offlinecahces');
     this.labels = this.table('labels');
+
+    this.offlineCahces.count(console.log);
   }
 }

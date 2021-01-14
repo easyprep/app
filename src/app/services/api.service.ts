@@ -10,6 +10,9 @@ import { Label } from '../interfaces/label';
   providedIn: 'root',
 })
 export class ApiService {
+  shortTermCacheTime = 24 * 60 * 60 * 1000; // ms
+  longTermCacheTime = 30 * 24 * 60 * 60 * 1000; // ms
+
   baseUrl = 'https://nkadebug.github.io/easy-prep-api/';
 
   cache: any = {};
@@ -22,18 +25,14 @@ export class ApiService {
     if (this.cache[path]) {
       if (refresh) {
         this.refreshPath(path);
-      } else {
-        console.log('From Cache :' + path);
       }
     } else {
       this.cache[path] = new BehaviorSubject(null);
+
       this.idb.offlineCahces.get(path).then((cache) => {
         if (cache) {
-          console.log('From IDB :' + path);
           this.cache[path].next(cache.json);
-          //console.log((cache.expiry - Date.now()) / 1000);
           if (cache.expiry < Date.now()) {
-            console.log('Cache Expired : ' + path);
             this.refreshPath(path);
           }
         } else {
@@ -41,20 +40,18 @@ export class ApiService {
         }
       });
     }
-    //console.log(this.cache);
     return this.cache[path];
   }
 
   refreshPath(path: string) {
-    console.log('Loading... : ' + path);
     this.http.get(this.baseUrl + path).subscribe(
       (json) => {
         let expiry = Date.now();
 
         if (path.startsWith('questions') || !path.endsWith('/')) {
-          expiry += 30 * 24 * 60 * 60 * 1000;
+          expiry += this.longTermCacheTime;
         } else {
-          expiry += 30 * 1000;
+          expiry += this.shortTermCacheTime;
         }
 
         this.idb.offlineCahces
@@ -64,12 +61,10 @@ export class ApiService {
             expiry,
           })
           .then(() => {
-            console.log('From server : ' + path);
             this.cache[path].next(json);
           });
       },
       (err) => {
-        console.log('Error : ' + path);
         this.cache[path].next(err);
       }
     );

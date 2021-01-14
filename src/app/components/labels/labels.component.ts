@@ -26,16 +26,13 @@ export class LabelsComponent implements OnInit {
   showError = false;
   errorMsg = '';
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private api: ApiService
-  ) {}
+  constructor(private route: ActivatedRoute, private api: ApiService) {}
 
   ngOnInit(): void {
     this.route.url.subscribe((segments: UrlSegment[]) => {
-      this.showLoading = true;
       this.showCalendars = false;
+      this.showLoading = true;
+      this.showQuestions.emit(null);
 
       this.path =
         segments.map((a) => a.path).join('/') + (segments.length ? '/' : '');
@@ -52,7 +49,7 @@ export class LabelsComponent implements OnInit {
 
       this.api.get('labels/' + this.path).subscribe((json) => {
         if (!json) return;
-        console.log(json);
+        //console.log(json);
 
         this.showLoading = false;
 

@@ -11,8 +11,10 @@ import { Observable, BehaviorSubject } from 'rxjs';
 })
 export class QuestionComponent implements OnInit {
   @Input() id: string = '';
+  @Input() updated_at: Date = new Date(0);
   @Input() quizMode: boolean = false;
   @Output() response = new EventEmitter<any>();
+  @Output() loaded = new EventEmitter<any>();
 
   question: Question | null = null;
   optionSelected: string | null = null;
@@ -23,6 +25,8 @@ export class QuestionComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.id) return;
+
+    this.loaded.emit({ id: this.id, loaded: false });
 
     let path =
       'questions' +
@@ -37,7 +41,7 @@ export class QuestionComponent implements OnInit {
 
     this.api.get(path).subscribe((json) => {
       if (!json) return;
-      console.log(json.id);
+      //console.log(json.id);
 
       let q = Object.create(json);
 
@@ -51,7 +55,14 @@ export class QuestionComponent implements OnInit {
       }
 
       q.options = options;
+      q.explanation = q.explanation.replace('Let us discuss.', '');
       this.question = q;
+
+      if (q.updated_at < this.updated_at) {
+        this.api.refreshPath(path);
+      }
+
+      this.loaded.emit({ id: q.id, loaded: true });
     });
   }
 

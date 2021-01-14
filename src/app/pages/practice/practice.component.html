@@ -4,15 +4,18 @@
 ></app-labels>
 
 <div *ngIf="questions.length">
-  <div *ngFor="let question of questions; let i = index">
+  <div>
     <app-question
+      *ngFor="let question of questions; let i = index"
       [class]="i != offset ? 'd-none' : ''"
       [id]="question.id"
-      (response)="response(question.id, $event)"
+      [updated_at]="question.updated_at"
+      (loaded)="loaded($event)"
+      (response)="response($event)"
     >
     </app-question>
   </div>
-  <nav>
+  <nav *ngIf="showPaginator | async">
     <ul class="pagination justify-content-center m-2">
       <li class="page-item w-50 mr-2" [class]="offset == 0 ? 'invisible' : ''">
         <a (click)="prev()" class="btn bg-info text-light page-link rounded-0"
