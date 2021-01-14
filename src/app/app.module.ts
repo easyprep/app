@@ -25,6 +25,7 @@ import { LabelsComponent } from './components/labels/labels.component';
 import { LabelComponent } from './components/label/label.component';
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { BiComponent } from './components/bi/bi.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { CalendarComponent } from './components/calendar/calendar.component';
     LabelComponent,
     BreadcrumbsComponent,
     CalendarComponent,
+    BiComponent,
   ],
   imports: [
     BrowserModule,

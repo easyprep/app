@@ -1,3 +1,6 @@
-li:empty{
+.list-group-item:empty {
   display: none;
+}
+.list-group-item-action {
+  cursor: pointer;
 }

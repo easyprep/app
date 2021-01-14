@@ -51,9 +51,8 @@ export class LabelsComponent implements OnInit {
         });
 
       this.api.get('labels/' + this.path).subscribe((json) => {
-        console.log(json);
-
         if (!json) return;
+        console.log(json);
 
         this.showLoading = false;
 
@@ -63,8 +62,6 @@ export class LabelsComponent implements OnInit {
         if (json.error) {
           return;
         }
-
-        console.log(this.showError, this.errorMsg);
 
         if (json.type == '_folder') {
           this.subLabels = json.data.map((a: any) => {

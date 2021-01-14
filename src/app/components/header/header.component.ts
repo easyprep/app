@@ -22,7 +22,5 @@ export class HeaderComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {
-    this.isConnected.subscribe(console.log);
-  }
+  ngOnInit(): void {}
 }

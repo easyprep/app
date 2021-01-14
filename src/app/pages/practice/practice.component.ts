@@ -21,10 +21,9 @@ export class PracticeComponent implements OnInit {
   path = '';
   prevIndexFile: string | null = null;
 
-  constructor(private api: ApiService, private route: ActivatedRoute) { }
+  constructor(private api: ApiService, private route: ActivatedRoute) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   next() {
     this.offset++;
@@ -44,14 +43,20 @@ export class PracticeComponent implements OnInit {
   }
 
   showQuestions(path: string, file: string = '') {
-    console.log(path);
     if (path) {
+      if (path !== this.path) {
+        this.count = 0;
+        this.offset = 0;
+      }
       this.path = path;
-      this.api.get('labels/' + path + file).subscribe(json => {
+      this.api.get('labels/' + path + file).subscribe((json) => {
+        if (!json) return;
         console.log(json);
-        this.questions = [... this.questions, ...json.data];
+
+        this.questions = [...this.questions, ...json.data];
         this.count = this.questions.length;
         this.prevIndexFile = json.prev;
+
         if (this.count == 1) {
           this.fetchPrevIndex();
         }

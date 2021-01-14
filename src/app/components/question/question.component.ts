@@ -9,7 +9,6 @@ import { Observable, BehaviorSubject } from 'rxjs';
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.scss'],
 })
-
 export class QuestionComponent implements OnInit {
   @Input() id: string = '';
   @Input() quizMode: boolean = false;
@@ -20,13 +19,11 @@ export class QuestionComponent implements OnInit {
   attempted = false;
   showAnswer = false;
 
-  constructor(
-    private api: ApiService,
-    private idb: IdbService
-  ) { }
+  constructor(private api: ApiService, private idb: IdbService) {}
 
   ngOnInit(): void {
-    console.log(this.id);
+    if (!this.id) return;
+
     let path =
       'questions' +
       this.id
@@ -37,55 +34,25 @@ export class QuestionComponent implements OnInit {
       '/' +
       this.id.substr(6, 30) +
       '/';
-    console.log(path);
-    this.api.get(path).subscribe(json => {
+
+    this.api.get(path).subscribe((json) => {
       if (!json) return;
-      json.labels = json.labels.split(',');
+      console.log(json.id);
+
+      let q = Object.create(json);
+
+      q.labels = q.labels.split(',');
       let options = [];
-      for (let key in json) {
-        if (key.indexOf("option") == 0) {
-          options.push(json[key]);
-          delete json[key];
+      for (let key in q) {
+        if (key.indexOf('option') == 0) {
+          options.push(q[key]);
+          delete q[key];
         }
       }
-      json.options = options;
-      this.question = json;
+
+      q.options = options;
+      this.question = q;
     });
-
-    // this.idb.questions.get(this.id)
-    //   .then(q => {
-    //     if (q) {
-    //       if (!q.question) {
-    //         let path =
-    //           'questions' +
-    //           q.id
-    //             .substr(0, 6)
-    //             .split('')
-    //             .map((a, i) => (i % 2 == 0 ? '/' + a : a))
-    //             .join('') +
-    //           '/' +
-    //           q.id.substr(6, 30) +
-    //           '/';
-
-    //         this.api.get(path).subscribe((json) => {
-    //           console.log(json);
-    //           json.labels = json.labels.split(',');
-    //           let options = [];
-    //           for (let key in json) {
-    //             if (key.indexOf("option") == 0) {
-    //               options.push(json[key]);
-    //               delete json[key];
-    //             }
-    //           }
-    //           json.options = options;
-    //           this.idb.questions.put(json);
-    //           this.question = json;
-    //         });
-    //       } else {
-    //         this.question = q;
-    //       }
-    //     }
-    //   });
   }
 
   checkAns(o: any, e: any) {

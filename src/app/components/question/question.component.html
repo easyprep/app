@@ -1,19 +1,24 @@
-<div *ngIf="question" [id]="question.id" class="card mb-2" [class]="{ noselect: quizMode }">
-  <meta content="{{
-      question.updated_at | date: 'yyyy-MM-dd HH:mm:ss'
-    }}" itemprop="updatedAt" />
-  <meta content="{{
-      question.created_at | date: 'yyyy-MM-dd HH:mm:ss'
-    }}" itemprop="createdAt" />
+<div *ngIf="question" [id]="question.id" [class]="{ noselect: quizMode }">
+  <meta
+    content="{{ question.updated_at | date: 'yyyy-MM-dd HH:mm:ss' }}"
+    itemprop="updatedAt"
+  />
+  <meta
+    content="{{ question.created_at | date: 'yyyy-MM-dd HH:mm:ss' }}"
+    itemprop="createdAt"
+  />
   <div class="card-body">
     <!-- <h5 class="card-title">Question {{ qNo + 1 }}.</h5> -->
     <p class="card-text font-weight-bold" [innerHTML]="question.question"></p>
   </div>
   <ul class="list-group list-group-flush">
-    <li *ngFor="let option of question.options; let i = index" (click)="checkAns(option, $event.target)"
-      class="list-group-item list-group-item-action" [class]="optionSelected == option ? 'text-light bg-primary' : ''"
-      [innerHTML]="option">
-    </li>
+    <li
+      *ngFor="let option of question.options; let i = index"
+      (click)="checkAns(option, $event.target)"
+      class="list-group-item list-group-item-action"
+      [class]="optionSelected == option ? 'text-light bg-primary' : ''"
+      [innerHTML]="option"
+    ></li>
   </ul>
   <div *ngIf="attempted" class="card-body">
     <p *ngIf="showAnswer" class="card-text">
@@ -31,4 +36,4 @@
     </div> -->
 </div>
 
-<div *ngIf="!question">Loading...</div>
+<div *ngIf="!question" class="loader bg-warning"></div>

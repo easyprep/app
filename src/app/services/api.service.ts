@@ -22,95 +22,56 @@ export class ApiService {
     if (this.cache[path]) {
       if (refresh) {
         this.refreshPath(path);
+      } else {
+        console.log('From Cache :' + path);
       }
     } else {
       this.cache[path] = new BehaviorSubject(null);
       this.idb.offlineCahces.get(path).then((cache) => {
         if (cache) {
+          console.log('From IDB :' + path);
           this.cache[path].next(cache.json);
+          //console.log((cache.expiry - Date.now()) / 1000);
+          if (cache.expiry < Date.now()) {
+            console.log('Cache Expired : ' + path);
+            this.refreshPath(path);
+          }
         } else {
           this.refreshPath(path);
         }
       });
     }
-    console.log(this.cache);
+    //console.log(this.cache);
     return this.cache[path];
-
-    // return from(
-    //   this.idb.offlineCahces.get(path)
-    //     .then((cache) => {
-    //       if (!cache || cache.expiry < Date.now()) {
-    //         return this.http.get(this.baseUrl + path)
-    //           .pipe(
-    //             tap(json => {
-    //               this.idb.offlineCahces.put({ path, json, expiry: Date.now() + 24 * 60 * 60 * 1000 });
-    //             })
-    //           ).toPromise();
-    //       } else {
-    //         return cache.json;
-    //       }
-    //     })
-    //     .catch(e => {
-    //       return { err: true, msg: e.message, path }
-    //     })
-    // );
   }
 
   refreshPath(path: string) {
+    console.log('Loading... : ' + path);
     this.http.get(this.baseUrl + path).subscribe(
       (json) => {
-        this.cache[path].next(json);
-        this.idb.offlineCahces.put({
-          path,
-          json,
-          expiry: Date.now() + 24 * 60 * 60 * 1000,
-        });
-      },
-      (err) => {
-        switch (err.status) {
-          case 0: {
-            err.message =
-              'Unknown Error. May have occured due to network. Check connectivity / Retry After sometime';
-            break;
-          }
+        let expiry = Date.now();
 
-          case 404: {
-            err.message = 'Not Found : ' + path;
-            break;
-          }
-
-          case 504: {
-            err.message = 'Gateway Timeout';
-            break;
-          }
-
-          default:
+        if (path.startsWith('questions') || !path.endsWith('/')) {
+          expiry += 30 * 24 * 60 * 60 * 1000;
+        } else {
+          expiry += 30 * 1000;
         }
 
+        this.idb.offlineCahces
+          .put({
+            path,
+            json,
+            expiry,
+          })
+          .then(() => {
+            console.log('From server : ' + path);
+            this.cache[path].next(json);
+          });
+      },
+      (err) => {
+        console.log('Error : ' + path);
         this.cache[path].next(err);
       }
     );
   }
-
-  // get(path: string = ''): Observable<any> {
-  //   if (!path.endsWith('.json') && !path.endsWith('/')) path += '/';
-  //   return from(
-  //     this.idb.offlineCahces.get(path)
-  //       .then((cache) => {
-  //         if (!cache || cache.expiry < Date.now()) {
-  //           return this.http.get(this.baseUrl + path)
-  //             .pipe(
-  //               tap(json => {
-  //                 this.idb.offlineCahces.put({ path, json, expiry: Date.now() + 24 * 60 * 60 * 1000 });
-  //               })
-  //             ).toPromise();
-  //         } else {
-  //           return cache.json;
-  //         }
-  //       })
-  //       .catch(e => {
-  //         return { err: true, msg: e.message, path }
-  //       })
-  //   );
-  // }
 }
