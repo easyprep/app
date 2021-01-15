@@ -28,16 +28,20 @@ export class CalendarComponent implements OnInit {
           let dt: number = (this.grid.length - 1) * cc + row.length - fi + 1;
 
           if (dt) {
-            if (new Date(`${this.year}-${this.month}-${dt}`).getDate() == dt) {
-              row.push({
+            let cdt = new Date(`${this.year}-${this.month}-${dt}`);
+            if (cdt.getDate() == dt) {
+              let lbl: any = {
                 title: dt,
-                path:
+              };
+              if (cdt.getTime() < Date.now() - 24 * 3600 * 1000) {
+                lbl.path =
                   (this.month < 10 ? '0' : '') +
                   this.month +
                   '/' +
                   (dt < 10 ? '0' : '') +
-                  dt,
-              });
+                  dt;
+              }
+              row.push(lbl);
             } else {
               row.push(null);
             }

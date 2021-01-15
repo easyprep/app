@@ -9,12 +9,27 @@ import { IdbService } from 'src/app/services/idb.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  y = 2021;
-  m = 1;
-  constructor(private api: ApiService) { }
+  y = new Date().getFullYear();
+  m = new Date().getMonth() + 1;
+  d: string[] = [];
+
+  constructor(private api: ApiService) {}
 
   ngOnInit(): void {
-
-    //this.api.get('labels/current-affairs/2018/02/03').subscribe(json => console.log(json));
+    this.api
+      .get(
+        'labels/current-affairs/' +
+          this.y +
+          '/' +
+          (this.m < 10 ? '0' : '') +
+          this.m +
+          '/'
+      )
+      .subscribe((json) => {
+        if (!json) return;
+        this.d = json.data
+          .sort((a: string, b: string) => (a > b ? -1 : 1))
+          .slice(0, 3);
+      });
   }
 }
