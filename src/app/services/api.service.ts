@@ -10,7 +10,7 @@ import { Label } from '../interfaces/label';
   providedIn: 'root',
 })
 export class ApiService {
-  shortTermCacheTime = 24 * 60 * 60 * 1000; // ms
+  shortTermCacheTime = 60 * 60 * 1000; // ms
   longTermCacheTime = 30 * 24 * 60 * 60 * 1000; // ms
 
   baseUrl = 'https://nkadebug.github.io/easy-prep-api/';
@@ -65,7 +65,8 @@ export class ApiService {
           });
       },
       (err) => {
-        this.cache[path].next(err);
+        //this.cache[path].next(err);
+        console.log(err);
       }
     );
   }

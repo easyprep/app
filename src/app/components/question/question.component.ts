@@ -81,10 +81,10 @@ export class QuestionComponent implements OnInit {
         e.classList.add('text-light');
         if (o == this.question?.answer) {
           e.classList.add('bg-success');
-          this.response.emit(1);
+          this.response.emit({ id: this.id, correct: true });
         } else {
           e.classList.add('bg-danger');
-          this.response.emit(0);
+          this.response.emit({ id: this.id, correct: false });
           this.showAnswer = true;
         }
         this.attempted = true;
