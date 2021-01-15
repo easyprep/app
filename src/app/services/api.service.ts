@@ -13,7 +13,7 @@ export class ApiService {
   shortTermCacheTime = 60 * 60 * 1000; // ms
   longTermCacheTime = 30 * 24 * 60 * 60 * 1000; // ms
 
-  baseUrl = '/api/';
+  baseUrl = 'https://easyprep.github.io/api/';
 
   cache: any = {};
 
@@ -65,8 +65,8 @@ export class ApiService {
           });
       },
       (err) => {
-        //this.cache[path].next(err);
-        console.log(err);
+        this.cache[path].next(err);
+        //console.log(err);
       }
     );
   }

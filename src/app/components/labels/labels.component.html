@@ -1,5 +1,5 @@
 <nav aria-label="breadcrumb">
-  <ol class="breadcrumb rounded-0 mb-0">
+  <ol class="breadcrumb">
     <li class="breadcrumb-item">
       <a routerLink="/home"
         ><svg
@@ -30,14 +30,14 @@
   </ol>
 </nav>
 
-<div *ngIf="showError; else noError" class="alert alert-danger m-3">
+<div *ngIf="showError; else noError" class="alert alert-danger">
   {{ errorMsg }}
 </div>
 
 <div *ngIf="showLoading" class="loader bg-warning"></div>
 
 <ng-template #noError>
-  <div *ngIf="showSubLabels && !showLoading" class="list-group m-3">
+  <div *ngIf="showSubLabels && !showLoading" class="list-group">
     <a
       *ngFor="let label of subLabels"
       routerLink="{{ label.path }}"

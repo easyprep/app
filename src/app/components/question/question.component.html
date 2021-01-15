@@ -1,4 +1,9 @@
-<div *ngIf="question" [id]="question.id" [class]="{ noselect: quizMode }">
+<div
+  *ngIf="question"
+  [id]="question.id"
+  [class]="{ noselect: quizMode }"
+  class="card"
+>
   <meta
     content="{{ question.updated_at | date: 'yyyy-MM-dd HH:mm:ss' }}"
     itemprop="updatedAt"
