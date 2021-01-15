@@ -13,7 +13,7 @@ export class ApiService {
   shortTermCacheTime = 60 * 60 * 1000; // ms
   longTermCacheTime = 30 * 24 * 60 * 60 * 1000; // ms
 
-  baseUrl = 'https://nkadebug.github.io/easy-prep-api/';
+  baseUrl = '/api/';
 
   cache: any = {};
 
