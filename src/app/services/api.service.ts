@@ -66,7 +66,6 @@ export class ApiService {
       },
       (err) => {
         this.cache[path].next(err);
-        //console.log(err);
       }
     );
   }
