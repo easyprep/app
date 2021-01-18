@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "start": "ng serve --open",
-    "build": "ng build --prod --base-href=/",
+    "build": "ng build --prod --base-href=/app/",
     "deploy": "git add . && git commit -m \"Update & Deploy\" && git push origin master",
     "pull": "git pull origin master",
     "push": "git add . && git commit -m \"Update & [skip ci]\" && git push origin master"
